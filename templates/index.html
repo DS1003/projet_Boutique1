@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #Layer_1 {
+            fill: #6c02cf !important;
+        }
+
+        .cursor {
+            position: fixed;
+            height: 20px;
+            width: 20px;
+            border-radius: 100%;
+            background-color: white !important;
+            margin-left: -10px;
+            margin-top: -10px;
+            z-index: 1000;
+            backdrop-filter: grayscale(1);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .cursor.active {
+            transform: scale(1.5);
+        }
+
+        body {
+            background-color: rgb(251, 244, 254);
+        }
+        .active-btn {
+            background-color: black !important;
+            color: white !important;
+        }
+    </style>
+    <script>
+        window.addEventListener("mousemove", (e) => {
+            let cursor = document.getElementById("cursor");
+
+            setTimeout(() => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            }, 25)
+            if (e.target.classList.contains("hover-card")) {
+                cursor.classList.add("active");
+            } else {
+                cursor.classList.remove("active");
+            }
+        })
+    </script>
+</head>
+
+<body class="flex flex-col lg:flex-row h-screen">
+
+    <!-- Cursor animation -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Sidebar -->
+    <div class="h-auto lg:h-full w-full lg:w-2/12 border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 flex flex-col items-center gap-8 lg:gap-20">
+        <div class="h-14 w-full p-4 rounded-lg mt-8 flex justify-center items-center gap-3">
+            <img src="/public/img/boutique-en-ligne.png" alt="" class="w-12">
+            <span class="text-purple-700 font-bold text-xl">Gestion BQ</span>
+        </div>
+
+        <!-- Les boutons -->
+        <div class="flex flex-col w-[95%] gap-4">
+            <button class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all active-btn">
+                <img src="/public/img/page-daccueil.png" alt="" class="w-8">
+                <span class="font-bold">Dashboard</span>
+            </button>
+            <a href="/templates/dettes.html" class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
+                <img src="/public/img/la-dette-a-long-terme.png" alt="" class="w-8">
+                <span class="font-bold">Dettes</span>
+            </a>
+            <button class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
+                <img src="/public/img/produit-marketing.png" alt="" class="w-8">
+                <span class="font-bold">Produits</span>
+            </button>
+            <button class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
+                <img src="/public/img/public-cible.png" alt="" class="w-8">
+                <span class="font-bold">Clients</span>
+            </button>
+            <button class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
+                <img src="/public/img/reglage.png" alt="" class="w-8">
+                <span class="font-bold">Réglages</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="h-auto lg:h-full w-full lg:w-7/12 border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 flex flex-col items-center">
+        <div class="w-[98%] h-14 rounded-lg mt-8 flex items-center p-6">
+            <span class="font-bold text-3xl text-purple-600">Bienvenue !!!</span>
+            <button id="calandar" class="w-9 h-9 rounded-full bg-white ml-auto flex justify-center items-center transition-shadow shadow-lg hover:shadow-2xl">
+                <img src="/public/img/calendrier (1).png" alt="" class="w-5">
+            </button>
+        </div>
+
+        <div class="w-full p-6 flex flex-col lg:flex-row justify-center items-center gap-6">
+            <div class="w-full lg:w-80 h-28 bg-gradient-to-r from-purple-900 to-purple-500 rounded-lg flex justify-center items-center gap-2 transition-shadow shadow-sm hover:shadow-lg hover-card">
+                <div class="flex flex-col gap-3">
+                    <span class="font-bold text-white text-2xl">Clients</span>
+                    <span class="font-bold text-white text-lg">23 clts</span>
+                </div>
+                <div class="w-28 h-full p-4">
+                    <img src="/public/img/public-cible.png" alt="">
+                </div>
+            </div>
+            <div class="w-full lg:w-80 h-28 bg-gradient-to-r from-purple-900 to-purple-500 rounded-lg flex justify-center items-center gap-2 transition-shadow shadow-sm hover:shadow-lg hover-card">
+                <div class="flex flex-col gap-3">
+                    <span class="font-bold text-white text-2xl">Dettes</span>
+                    <span class="font-bold text-white text-lg">25.325 f cfa</span>
+                </div>
+                <div class="w-28 h-full p-4">
+                    <img src="/public/img/la-dette-a-long-terme.png" alt="">
+                </div>
+            </div>
+            <div class="w-full lg:w-80 h-28 bg-gradient-to-r from-purple-900 to-purple-500 rounded-lg flex justify-center items-center gap-2 transition-shadow shadow-sm hover:shadow-lg hover-card">
+                <div class="flex flex-col gap-3">
+                    <span class="font-bold text-white text-2xl">Produits</span>
+                    <span class="font-bold text-white text-lg">125 pdts</span>
+                </div>
+                <div class="w-28 h-full p-4">
+                    <img src="/public/img/produit-marketing.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="cards2 w-full p-4 flex justify-center items-center gap-2">
+            <div class="right w-8/12 p-2 flex flex-col gap-2">
+                <div class="bg-white p-6 rounded-xl border border-gray-50 transition-shadow shadow-sm hover:shadow-lg hover-card">
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-col">
+                            <p class="text-xs text-gray-600 tracking-wide">Infos</p>
+                            <h3 class="mt-1 text-lg text-purple-500 font-bold">Voir les prix des produits sur le marché !</h3>
+                            <span class="mt-4 text-xs text-gray-500">Limites de responsabilité de la compagnie maritime</span>
+                        </div>
+                        <div class="md:p-1 xl:p-2 rounded-md">
+                            <img src="/public/img/etiquettes-de-prix.png" alt="icon" class="w-auto h-12 md:h-12 xl:h-12 object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-50 transition-shadow shadow-sm hover:shadow-lg hover-card">
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-col">
+                            <p class="text-xs text-gray-600 tracking-wide">Statistique</p>
+                            <h3 class="mt-1 text-lg text-purple-500 font-bold">Flux des achats ventes et dettes</h3>
+                            <span class="mt-4 text-xs text-gray-500">Limites de responsabilité de la compagnie maritime</span>
+                        </div>
+                        <div class="md:p-1 xl:p-2 rounded-md">
+                            <img src="/public/img/remise.png" alt="icon" class="w-auto h-12 md:h-12 xl:h-12 object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-2 p-6 w-4/12 h-[94%] rounded-2xl bg-gradient-to-r from-purple-600 to-purple-900 flex flex-col justify-between">
+                <div class="flex flex-col">
+                    <p class="text-white font-bold">Gestion BQ</p>
+                    <p class="mt-1 text-xs md:text-sm text-gray-50 font-light leading-tight max-w-sm">L'objectif de cette page de tableau de bord est de fournir une vue d'ensemble claire et concise des principales informations.</p>
+                </div>
+                <div class="flex justify-between items-end">
+                    <a href="#" class="bg-purple-400 px-3 py-2 mt-4 rounded-lg text-white text-xs tracking-wider font-semibold hover:bg-purple-500 hover:text-white">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-black w-full mt-auto pb-1">
+            <div class="container mx-auto text-center">
+                <p class="text-[.6rem] font-light">Copyright &copy; 2024. Powered with ❤️ , 🥥 & 🍍 By Seydiop</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Section de droite -->
+    <div class="h-auto lg:h-full w-full lg:w-3/12 flex flex-col items-center">
+        <span class="font-bold text-2xl text-purple-700 mt-8 mb-8">Récapitulatif</span>
+
+        <div class="w-[80%] bg-white rounded-xl p-4 flex flex-col gap-2">
+            <div class="w-full h-10 flex items-center">
+                <span class="font-bold text-md text-gray-600">Votre caisse</span>
+            </div>
+            <div class="w-full h-10 flex items-center">
+                <span class="font-bold text-4xl text-purple-900">123 275 F cfa</span>
+            </div>
+            <div class="w-full h-10 flex items-center gap-6">
+                <p class="text-green-500">+ $3,250.07</p>
+                <p class="text-red-500">- $1,062.90</p>
+            </div>
+            <button class="h-8 w-8 rounded-full bg-red-600 flex justify-center items-center text-white font-bold absolute left-[96.4%] top-[22%]">?</button>
+        </div>
+    </div>
+</body>
+
+</html>

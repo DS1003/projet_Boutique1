@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <style>
+        #Layer_1 {
+            fill: #6c02cf !important;
+        }
+
+        .cursor {
+            position: fixed;
+            height: 20px;
+            width: 20px;
+            border-radius: 100%;
+            background-color: white !important;
+            margin-left: -10px;
+            margin-top: -10px;
+            z-index: 1000;
+            backdrop-filter: grayscale(1);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .cursor.active {
+            transform: scale(1.5);
+        }
+
+        body {
+            background-color: rgb(251, 244, 254);
+        }
+
+        tbody>tr:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .active-btn {
+            background-color: black !important;
+            color: white !important;
+        }
+    </style>
+    <script>
+        window.addEventListener("mousemove", (e) => {
+            let cursor = document.getElementById("cursor");
+
+            setTimeout(() => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            }, 25)
+            if (e.target.classList.contains("hover-card")) {
+                cursor.classList.add("active");
+            } else {
+                cursor.classList.remove("active");
+            }
+        })
+        function filterTable() {
+            const nomFilter = document.getElementById("filter-nom").value.toLowerCase();
+            const telFilter = document.getElementById("filter-tel").value.toLowerCase();
+            const tableBody = document.getElementById("cargo-table-body");
+            const rows = tableBody.getElementsByTagName("tr");
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName("td");
+                const nom = cells[1].textContent.toLowerCase();
+                const tel = cells[2].textContent.toLowerCase();
+
+                if (nom.includes(nomFilter) && tel.includes(telFilter)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="flex flex-col lg:flex-row h-screen">
+
+    <!-- Cursor animation -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Sidebar -->
+    <div
+        class="h-auto lg:h-full w-full lg:w-2/12 border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 flex flex-col items-center gap-8 lg:gap-20">
+        <div class="h-14 w-full p-4 rounded-lg mt-8 flex justify-center items-center gap-3">
+            <img src="/public/img/boutique-en-ligne.png" alt="" class="w-12">
+            <span class="text-purple-700 font-bold text-xl">Gestion BQ</span>
+        </div>
+
+        <!-- Les boutons -->
+        <div class="flex flex-col w-[95%] gap-4">
+            <a href="/templates/index.html"
+                class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
+                <img src="/public/img/page-daccueil.png" alt="" class="w-8">
+                <span class="font-bold">Dashboard</span>
+            </a>
+            <button 
+                class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all active-btn">
+                <img src="/public/img/la-dette-a-long-terme.png" alt="" class="w-8">
+                <span class="font-bold">Dettes</span>
+            </button>
+            <button
+                class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
+                <img src="/public/img/produit-marketing.png" alt="" class="w-8">
+                <span class="font-bold">Produits</span>
+            </button>
+            <button
+                class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
+                <img src="/public/img/public-cible.png" alt="" class="w-8">
+                <span class="font-bold">Clients</span>
+            </button>
+            <button
+                class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
+                <img src="/public/img/reglage.png" alt="" class="w-8">
+                <span class="font-bold">Réglages</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="h-auto lg:h-full w-full lg:w-10/12 border-gray-200 flex flex-col items-center ">
+
+        <!-- Header -->
+        <div class="header flex items-center h-12 p-2 w-full transition-shadow shadow-sm hover:shadow-lg">
+
+            <button class="burger h-10 w-10 ml-2 rounded-full transition-shadow shadow-sm hover:shadow-lg">
+                <i class="fa-solid fa-bars fa-md" style="color: #8b02b1;"></i>
+            </button>
+
+            <div class="searbar flex items-center w-3/12 ml-10">
+                <input type="search" placeholder="Rechercher..." class="rounded-full pl-4 pr-3 h-9 w-full border-2 ">
+            </div>
+
+            <!-- icone notifications -->
+            <button class="h-8 w-8 ml-[41%] rounded-full transition-shadow shadow-sm hover:shadow-lg">
+                <i class="fa-solid fa-bell fa-md" style="color: #8b02b1;"></i>
+            </button>
+
+            <span class="font-bold text-sm text-purple-700 ml-[5%]">Seydina Mouhammad Diop</span>
+            <a href="https://github.com/DS1003" id="card"
+                class="profile h-10 w-10 ml-2 rounded-full overflow-hidden border-2 border-purple-200 hover:border-4 hover:border-purple-700 transition-shadow shadow-sm hover:shadow-lg">
+                <img id="card" src="/public/img/WhatsApp Image 2024-05-23 at 08.58.02.jpeg" alt="">
+            </a>
+        </div>
+
+        <div class="content h-full w-full p-4 flex flex-col overflow-y-scroll">
+
+            <div class="titrePage w-full h-12 flex items-center p-2">
+                <span class="font-bold text-xl text-purple-700">Boutique - Dettes</span>
+            </div>
+
+            <!-- Tableau -->
+            <div class="grid grid-cols-1 md:grid-cols-5 items-start px-4 xl:p-0 gap-y-4 md:gap-6 mt-6 ">
+                <div class="col-span-5 bg-white p-6 rounded-xl border border-gray-50">
+                    <h2 class="text-sm text-gray-600 font-bold tracking-wide mb-4">Filtrer les Cargaisons</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 items-center">
+
+                        <input id="filter-nom" type="search" placeholder="Nom complet client..."
+                            class="py-2 px-4 border rounded-full" oninput="filterTable()">
+                        <input id="filter-tel" type="search" placeholder="Téléphone client..."
+                            class="py-2 px-4 border rounded-full" oninput="filterTable()">
+
+                    </div>
+                    <table class="min-w-full bg-white">
+                        <thead
+                            class="h-10 text-center py-2 px-4 bg-purple-500 text-left text-sm font-medium text-white">
+                            <tr>
+                                <th class="rounded-tl-lg rounded-bl-lg">Photo</th>
+                                <th>Nom Complet</th>
+                                <th>Téléphone</th>
+                                <th>Adresse</th>
+                                <th>Montant dette</th>
+                                <th>Montant payé</th>
+                                <th class="rounded-tr-lg rounded-br-lg">Date dette</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cargo-table-body" class="divide-y divide-gray-200 text-center ">
+                            <!-- liste des dettes -->
+                            <tr>
+                                <td class="flex justify-center">
+                                    <img src="/public/img/WhatsApp Image 2024-05-23 at 08.58.02.jpeg" alt=""
+                                        class="w-8 self-center h-8 rounded-full mt-2">
+                                </td>
+                                <td>Seydina Mouhammad Diop</td>
+                                <td>70 581 32 57</td>
+                                <td>123 Main St, City, ST</td>
+                                <td>$120</td>
+                                <td>$80</td>
+                                <td>12/01/2024</td>
+                            </tr>
+                            <!-- liste des dettes -->
+                            <tr>
+                                <td class="flex justify-center">
+                                    <img src="/public/img/WhatsApp Image 2024-05-23 at 08.58.02.jpeg" alt=""
+                                        class="w-8 self-center h-8 rounded-full mt-2">
+                                </td>
+                                <td>Ndeye Amy Sène</td>
+                                <td>77 144 34 70</td>
+                                <td>123 Main St, City, ST</td>
+                                <td>$120</td>
+                                <td>$80</td>
+                                <td>12/01/2024</td>
+                            </tr>
+                            <tr>
+                                <td class="flex justify-center">
+                                    <img src="/public/img/WhatsApp Image 2024-05-23 at 08.58.02.jpeg" alt=""
+                                        class="w-8 self-center h-8 rounded-full mt-2">
+                                </td>
+                                <td>John Doe</td>
+                                <td>06 12 34 56 78</td>
+                                <td>123 Main St, City, ST</td>
+                                <td>$120</td>
+                                <td>$80</td>
+                                <td>12/01/2024</td>
+                            </tr>
+                            <tr>
+                                <td class="flex justify-center">
+                                    <img src="/public/img/WhatsApp Image 2024-05-23 at 08.58.02.jpeg" alt=""
+                                        class="w-8 self-center h-8 rounded-full mt-2">
+                                </td>
+                                <td>Jane Doe</td>
+                                <td>78 939 38 21</td>
+                                <td>123 Main St, City, ST</td>
+                                <td>$120</td>
+                                <td>$80</td>
+                                <td>12/01/2024</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div id="pagination" class="flex justify-end mt-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class=" text-black w-full mt-auto pb-1">
+            <div class="container mx-auto text-center">
+                <p class="text-[.6rem] font-light">Copiright &copy; 2024. Powered with ❤️ , 🥥 & 🍍 By Seydiop</p>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- Bouton dans la bordure gauche du pop-up -->
+    <div id="popup"
+        class="fixed top-0 right-0 w-full max-w-sm h-full bg-white shadow-lg transform translate-x-full transition-transform border-l-4 border-purple-700">
+        <button id="toggle-popup"
+            class="absolute -left-6 top-1/2 transform -translate-y-1/2 bg-purple-700 text-white rounded-full p-2">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="p-4">
+            <h2 class="text-xl font-bold text-purple-700">Nouvelle dette</h2>
+            <form id="debt-form" class="mt-4">
+                <input type="text" placeholder="Nom complet" class="w-full mb-2 p-2 border rounded" required>
+                <input type="text" placeholder="Téléphone" class="w-full mb-2 p-2 border rounded" required>
+                <input type="text" placeholder="Adresse" class="w-full mb-2 p-2 border rounded" required>
+                <input type="number" placeholder="Montant dette" class="w-full mb-2 p-2 border rounded" required>
+                <input type="number" placeholder="Montant payé" class="w-full mb-2 p-2 border rounded" required>
+                <button type="submit" class="bg-purple-700 text-white px-4 py-2 rounded-full">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const popup = document.getElementById('popup');
+        const togglePopup = document.getElementById('toggle-popup');
+
+        togglePopup.addEventListener('click', () => {
+            popup.classList.toggle('translate-x-full');
+        });
+    </script>
+
+</body>
+
+</html>
