@@ -45,6 +45,7 @@
             background-color: black !important;
             color: white !important;
         }
+
     </style>
     <script>
         window.addEventListener("mousemove", (e) => {
@@ -78,6 +79,7 @@
                 }
             }
         }
+
     </script>
 </head>
 
@@ -96,12 +98,12 @@
 
         <!-- Les boutons -->
         <div class="flex flex-col w-[95%] gap-4">
-            <a href="/templates/index.html"
+            <a href="/app/views/index.html"
                 class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all">
                 <img src="/public/img/page-daccueil.png" alt="" class="w-8">
                 <span class="font-bold">Dashboard</span>
             </a>
-            <button 
+            <button
                 class="h-14 w-full flex pl-8 items-center shadow-md gap-3 hover:gap-6 bg-white hover:bg-black text-purple-700 hover:text-white rounded-lg transition-all active-btn">
                 <img src="/public/img/la-dette-a-long-terme.png" alt="" class="w-8">
                 <span class="font-bold">Dettes</span>
@@ -170,7 +172,7 @@
                     </div>
                     <table class="min-w-full bg-white">
                         <thead
-                            class="h-10 text-center py-2 px-4 bg-purple-500 text-left text-sm font-medium text-white">
+                            class="h-10 text-center py-2 px-4 bg-purple-500 text-sm font-medium text-white">
                             <tr>
                                 <th class="rounded-tl-lg rounded-bl-lg">Photo</th>
                                 <th>Nom Complet</th>
@@ -255,9 +257,10 @@
         <button id="toggle-popup"
             class="absolute -left-6 top-1/2 transform -translate-y-1/2 bg-purple-700 text-white rounded-full p-2">
             <i class="fa-solid fa-chevron-left"></i>
+            <i class="fa-solid fa-chevron-left"></i>
         </button>
         <div class="p-4">
-            <h2 class="text-xl font-bold text-purple-700">Nouvelle dette</h2>
+            <h2 class="text-xl font-bold text-purple-700">Ajouter une dette</h2>
             <form id="debt-form" class="mt-4">
                 <input type="text" placeholder="Nom complet" class="w-full mb-2 p-2 border rounded" required>
                 <input type="text" placeholder="Téléphone" class="w-full mb-2 p-2 border rounded" required>
