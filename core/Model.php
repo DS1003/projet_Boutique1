@@ -1,9 +1,11 @@
+<?php
 namespace Core;
 
 class Model {
     protected $pdo;
 
     public function __construct() {
-        $this->pdo = new \PDO("mysql:host=localhost;dbname=mydatabase", "username", "password");
+        $this->pdo = new \PDO("mysql:host=localhost;dbname=mydatabase", "pos", "password");
     }
 }
+

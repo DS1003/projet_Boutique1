@@ -1,10 +1,11 @@
+<?php
 namespace App\Models;
 
 use Core\Model;
 
-class User extends Model {
+class Dettes extends Model {
     public function getUsers() {
-        $stmt = $this->pdo->prepare("SELECT * FROM users");
+        $stmt = $this->pdo->prepare("SELECT * FROM dettes");
         $stmt->execute();
         return $stmt->fetchAll();
     }
