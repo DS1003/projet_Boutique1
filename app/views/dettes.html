@@ -240,6 +240,7 @@
                     <div id="pagination" class="flex justify-end mt-4"></div>
                 </div>
             </div>
+            
         </div>
 
         <!-- Footer -->
@@ -251,35 +252,118 @@
     </div>
 
 
-    <!-- Bouton dans la bordure gauche du pop-up -->
-    <div id="popup"
-        class="fixed top-0 right-0 w-full max-w-sm h-full bg-white shadow-lg transform translate-x-full transition-transform border-l-4 border-purple-700">
-        <button id="toggle-popup"
-            class="absolute -left-6 top-1/2 transform -translate-y-1/2 bg-purple-700 text-white rounded-full p-2">
+    <div id="popup" class="fixed top-0 right-0 w-full max-w-sm h-full bg-white shadow-lg transform translate-x-full transition-transform border-l-4 border-purple-700">
+        <button id="toggle-popup" class="absolute -left-6 top-1/2 transform -translate-y-1/2 bg-purple-700 text-white rounded-full p-2">
             <i class="fa-solid fa-chevron-left"></i>
             <i class="fa-solid fa-chevron-left"></i>
         </button>
         <div class="p-4">
             <h2 class="text-xl font-bold text-purple-700">Ajouter une dette</h2>
             <form id="debt-form" class="mt-4">
-                <input type="text" placeholder="Nom complet" class="w-full mb-2 p-2 border rounded" required>
-                <input type="text" placeholder="Téléphone" class="w-full mb-2 p-2 border rounded" required>
-                <input type="text" placeholder="Adresse" class="w-full mb-2 p-2 border rounded" required>
-                <input type="number" placeholder="Montant dette" class="w-full mb-2 p-2 border rounded" required>
-                <input type="number" placeholder="Montant payé" class="w-full mb-2 p-2 border rounded" required>
-                <button type="submit" class="bg-purple-700 text-white px-4 py-2 rounded-full">Enregistrer</button>
+                <input type="text" id="client-phone" placeholder="Téléphone" class="w-9/12 mb-2 p-2 border rounded" required>
+                <button type="button" id="check-phone" class="bg-purple-700 text-white px-4 py-2 rounded-full">Vérifier</button>
+                
+                <div id="client-info" class="mt-4 hidden">
+                    <input type="text" id="client-name" placeholder="Nom complet" class="w-full mb-2 p-2 border rounded" required>
+                    <input type="text" id="client-address" placeholder="Adresse" class="w-full mb-2 p-2 border rounded" required>
+                    <input type="number" id="debt-amount" placeholder="Montant dette" class="w-full mb-2 p-2 border rounded" required>
+                    <input type="number" id="paid-amount" placeholder="Montant payé" class="w-full mb-2 p-2 border rounded" required>
+                    
+                    <h3 class="text-lg font-bold text-purple-700">Ajouter un produit</h3>
+                    <input type="text" id="product-name" placeholder="Libellé du produit" class="w-full mb-2 p-2 border rounded" required>
+                    <div id="product-info" class="hidden">
+                        <input type="number" id="product-price" placeholder="Prix unitaire" class="w-full mb-2 p-2 border rounded" required>
+                        <input type="number" id="product-quantity" placeholder="Quantité" class="w-full mb-2 p-2 border rounded" required>
+                        <input type="number" id="product-remaining" placeholder="Quantité restant" class="w-full mb-2 p-2 border rounded" required>
+                    </div>
+                    <button type="button" id="add-product" class="bg-purple-700 text-white px-4 py-2 rounded-full">Ajouter produit</button>
+                </div>
             </form>
+    
+            <h3 class="text-lg font-bold text-purple-700 mt-4">Produits ajoutés</h3>
+            <table id="products-table" class="min-w-full bg-white border">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 border">Libellé</th>
+                        <th class="px-4 py-2 border">Prix unitaire</th>
+                        <th class="px-4 py-2 border">Quantité</th>
+                        <th class="px-4 py-2 border">Quantité restant</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            
+            <button type="submit" class="bg-purple-700 text-white px-4 py-2 rounded-full mt-4">Enregistrer</button>
         </div>
     </div>
-
+    
     <script>
         const popup = document.getElementById('popup');
         const togglePopup = document.getElementById('toggle-popup');
-
+        const checkPhoneButton = document.getElementById('check-phone');
+        const clientInfoDiv = document.getElementById('client-info');
+        const addProductButton = document.getElementById('add-product');
+        const productsTableBody = document.getElementById('products-table').querySelector('tbody');
+        
         togglePopup.addEventListener('click', () => {
             popup.classList.toggle('translate-x-full');
         });
+    
+        checkPhoneButton.addEventListener('click', () => {
+            const phone = document.getElementById('client-phone').value;
+            // Simulation de la recherche du client
+            // Remplacer par un appel AJAX pour rechercher le client par numéro de téléphone
+            if (phone === '123456789') { // Exemple de numéro existant
+                document.getElementById('client-name').value = 'John Doe';
+                document.getElementById('client-address').value = '123 Main St';
+                clientInfoDiv.classList.remove('hidden');
+            } else {
+                document.getElementById('client-name').value = '';
+                document.getElementById('client-address').value = '';
+                clientInfoDiv.classList.remove('hidden');
+            }
+        });
+    
+        addProductButton.addEventListener('click', () => {
+            const productName = document.getElementById('product-name').value;
+            const productPrice = document.getElementById('product-price').value;
+            const productQuantity = document.getElementById('product-quantity').value;
+            const productRemaining = document.getElementById('product-remaining').value;
+    
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="px-4 py-2 border">${productName}</td>
+                <td class="px-4 py-2 border">${productPrice}</td>
+                <td class="px-4 py-2 border">${productQuantity}</td>
+                <td class="px-4 py-2 border">${productRemaining}</td>
+            `;
+            productsTableBody.appendChild(row);
+    
+            // Clear product input fields
+            document.getElementById('product-name').value = '';
+            document.getElementById('product-price').value = '';
+            document.getElementById('product-quantity').value = '';
+            document.getElementById('product-remaining').value = '';
+        });
+    
+        document.getElementById('product-name').addEventListener('input', () => {
+            const productName = document.getElementById('product-name').value;
+            // Simulation de la recherche du produit
+            // Remplacer par un appel AJAX pour rechercher le produit par libellé
+            if (productName === 'Produit A') { // Exemple de produit existant
+                document.getElementById('product-price').value = '10';
+                document.getElementById('product-quantity').value = '';
+                document.getElementById('product-remaining').value = '50';
+                document.getElementById('product-info').classList.remove('hidden');
+            } else {
+                document.getElementById('product-price').value = '';
+                document.getElementById('product-quantity').value = '';
+                document.getElementById('product-remaining').value = '';
+                document.getElementById('product-info').classList.add('hidden');
+            }
+        });
     </script>
+    
 
 </body>
 

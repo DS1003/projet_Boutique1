@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Core\Model;
+use PDO;
 
 class Clients {
     private $db;

@@ -5,7 +5,7 @@ class Model {
     protected $pdo;
 
     public function __construct() {
-        $this->pdo = new \PDO("mysql:host=localhost;dbname=mydatabase", "pos", "password");
+        $this->pdo = new \PDO("mysql:host=localhost;dbname=mydatabase", "mouhaleecr7", "seydiop@1723");
     }
 }
 
